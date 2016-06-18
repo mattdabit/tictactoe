@@ -11,12 +11,10 @@ public class GameLooper {
     }
 
     public void startGameLoop(){
+        turnChooser.playPlayerOneTurn();
         while (!gameEnder.isGameOver()) {
-            turnChooser.playPlayerOneTurn();
-            if (gameEnder.isGameOver()){
-                break;
-            }
             turnChooser.playPlayerTwoTurn();
+            turnChooser.playPlayerOneTurn();
         }
         gameEnder.endGame();
 
