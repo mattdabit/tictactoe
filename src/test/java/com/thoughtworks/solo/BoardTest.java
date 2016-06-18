@@ -6,8 +6,6 @@ import org.junit.Test;
 
 import java.io.PrintStream;
 
-import static junit.framework.TestCase.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -26,16 +24,6 @@ public class BoardTest {
     public void shouldDrawEmptyGameBoardWhenStarting() {
         board.drawGameBoard();
         verify(printStream).println("1|2|3\n-----\n4|5|6\n-----\n7|8|9\n");
-    }
-
-    @Test
-    public void shouldReturnTrueWhenPlayerInputIsAvailableOnBoard() {
-        assertTrue(board.isPositionAvailableOnBoard("1"));
-    }
-
-    @Test
-    public void shouldReturnFalseWhenPlayerInputIsBad() {
-        assertFalse(board.isPositionAvailableOnBoard("-"));
     }
 
     @Test

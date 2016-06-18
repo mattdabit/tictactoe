@@ -7,18 +7,19 @@ import java.io.PrintStream;
 public class Main {
     public static void main(String[] args) {
         PrintStream printStream = System.out;
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        InputReader inputReader = new InputReader(new BufferedReader(new InputStreamReader(System.in)));
         Board board = new Board(printStream);
-        Player player1 = new HumanPlayer(bufferedReader, board, "X");
-        Player player2 = new HumanPlayer(bufferedReader, board, "O");
-        Referee referee = new Referee(printStream, board);
-        TicTacToeManager ticTacToeManager = new TicTacToeManager(board, referee, player1, player2);
-        board.drawGameBoard();
-        while (!board.isBoardFull()) {
-            ticTacToeManager.playOneTurnOfGame();
-            board.drawGameBoard();
-            ticTacToeManager.switchPlayerTurn();
-        }
+        Player player1 = new HumanPlayer(board, "X");
+        Player player2 = new HumanPlayer(board, "O");
+        Referee referee = new Referee(printStream, board, inputReader);
+        MoveReceiver moveReceiver = new MoveReceiver(referee, board);
+        TurnChooser turnChooser = new TurnChooser(board, player1, player2, moveReceiver);
+        GameStarter gameStarter = new GameStarter(board);
+        GameEnder gameEnder = new GameEnder(board, printStream);
+        GameLooper gameLooper = new GameLooper(turnChooser, gameEnder);
 
+        gameStarter.startGame();
+        gameLooper.startGameLoop();
     }
+
 }
